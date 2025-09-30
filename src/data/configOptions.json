@@ -1,1 +1,17 @@
-
+{
+  "order": [
+    "Starter", "Disconnect", "MotorVoltage", "Amperage",
+    "Enclosure", "Overload", "ControlVoltage", "Controls", "LEDs"
+  ],
+  "options": {
+    "Starter": { "length": 1, "choices": ["S"] },
+    "Disconnect": { "length": 1, "choices": ["F"] },
+    "MotorVoltage": { "length": 2, "choices": ["21"] },
+    "Amperage": { "length": 2, "choices": ["09"] },
+    "Enclosure": { "length": 1, "choices": ["1"] },
+    "Overload": { "length": 2, "choices": ["05", "16", "27"] },
+    "ControlVoltage": { "length": 1, "choices": ["C"] },
+    "Controls": { "length": 3, "choices": ["HXX"] },
+    "LEDs": { "length": 1, "choices": ["1"] }
+  }
+}
