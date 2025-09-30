@@ -1,17 +1,107 @@
 {
-  "order": [
-    "Starter", "Disconnect", "MotorVoltage", "Amperage",
-    "Enclosure", "Overload", "ControlVoltage", "Controls", "LEDs"
-  ],
-  "options": {
-    "Starter": { "length": 1, "choices": ["S"] },
-    "Disconnect": { "length": 1, "choices": ["F"] },
-    "MotorVoltage": { "length": 2, "choices": ["21"] },
-    "Amperage": { "length": 2, "choices": ["09"] },
-    "Enclosure": { "length": 1, "choices": ["1"] },
-    "Overload": { "length": 2, "choices": ["05", "16", "27"] },
-    "ControlVoltage": { "length": 1, "choices": ["C"] },
-    "Controls": { "length": 3, "choices": ["HXX"] },
-    "LEDs": { "length": 1, "choices": ["1"] }
-  }
+  "PartNumberStructure": [
+    {
+      "Segment": "Prefix",
+      "Length": 1,
+      "Description": "Starter prefix",
+      "ValidOptions": {
+        "S": "Starter"
+      }
+    },
+    {
+      "Segment": "Disconnect",
+      "Length": 1,
+      "Description": "Disconnect type",
+      "ValidOptions": {
+        "F": "Fused",
+        "N": "Non-Fused",
+        "X": "None"
+      }
+    },
+    {
+      "Segment": "MotorVoltage",
+      "Length": 2,
+      "Description": "Motor voltage",
+      "ValidOptions": {
+        "21": "208/240V 1PH",
+        "23": "208/240V 3PH",
+        "43": "480V 3PH"
+      }
+    },
+    {
+      "Segment": "Amperage",
+      "Length": 3,
+      "Description": "Amperage rating",
+      "ValidOptions": {
+        "009": "9A",
+        "012": "12A",
+        "016": "16A",
+        "023": "23A",
+        "030": "30A",
+        "037": "37A",
+        "043": "43A",
+        "055": "55A",
+        "060": "60A",
+        "072": "72A",
+        "085": "85A"
+      }
+    },
+    {
+      "Segment": "Enclosure",
+      "Length": 1,
+      "Description": "Enclosure type",
+      "ValidOptions": {
+        "1": "Nema 1",
+        "3": "Nema 3R",
+        "4": "Nema 4/12",
+        "X": "Nema 4X"
+      }
+    },
+    {
+      "Segment": "Overload",
+      "Length": 2,
+      "Description": "Overload range",
+      "ValidOptions": {
+        "05": "1-5A, CA7-9 to 23",
+        "16": "3.2-16A CA7-9 to 23",
+        "27": "5.4-27A CA7-9 to 55",
+        "55": "11-55A CA7-30 to 55",
+        "XX": "20-100A CA7-60 to 85"
+      }
+    },
+    {
+      "Segment": "ControlVoltage",
+      "Length": 1,
+      "Description": "Control voltage type",
+      "ValidOptions": {
+        "C": "Common Control (Default 120V)",
+        "X": "External Control",
+        "T": "Control Transformer"
+      }
+    },
+    {
+      "Segment": "Controls",
+      "Length": 3,
+      "Description": "Control configuration",
+      "ValidOptions": {
+        "HXX": "HOA",
+        "HSX": "HOA & Start PB",
+        "HSS": "HOA & Start/Stop PB or SS",
+        "XSS": "Start/Stop PB",
+        "XXX": "None"
+      }
+    },
+    {
+      "Segment": "LEDs",
+      "Length": 1,
+      "Description": "Number of LEDs",
+      "ValidOptions": {
+        "1": "1 LED",
+        "2": "2 LEDs",
+        "3": "3 LEDs",
+        "X": "None"
+      }
+    }
+  ]
 }
+

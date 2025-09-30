@@ -6,16 +6,19 @@
  * @param {Set<string>} validSKUs
  * @returns {string|null}
  */
-function buildAndValidateSKU(selections, configOptions, validSKUs) {
+
+function buildAndValidateSKU(selections, partNumberStructure, validSKUs) {
   let sku = '';
-  for (const key of configOptions.order) {
+  for (const segment of partNumberStructure) {
+    const key = segment.Segment;
     const value = selections[key];
-    if (value === undefined || value === null) return null;
-    const len = configOptions.options[key].length;
+    if (value === undefined || value === null || value === '') return null;
+    const len = segment.Length;
     sku += value.toString().padEnd(len, ' ');
   }
   sku = sku.replace(/ /g, '');
-  if (sku.length !== 15) return null;
+  // Optionally, you can check for a specific length if needed
+  // if (sku.length !== 15) return null;
   return validSKUs.has(sku) ? sku : null;
 }
 

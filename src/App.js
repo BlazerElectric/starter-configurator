@@ -11,14 +11,15 @@ function App() {
   const [sku, setSku] = useState(null);
 
   const validSKUs = React.useMemo(() => new Set(skusData), []);
+  const partNumberStructure = configOptionsData.PartNumberStructure;
 
   useEffect(() => {
-    const result = buildAndValidateSKU(selections, configOptionsData, validSKUs);
+    const result = buildAndValidateSKU(selections, partNumberStructure, validSKUs);
     setSku(result);
-  }, [selections, validSKUs]);
+  }, [selections, validSKUs, partNumberStructure]);
 
-  const handleSelection = (key, value) => {
-    setSelections(prev => ({ ...prev, [key]: value }));
+  const handleSelection = (segment, value) => {
+    setSelections(prev => ({ ...prev, [segment]: value }));
   };
 
   const handleEmail = () => {
@@ -30,12 +31,12 @@ function App() {
   return (
     <div style={{ maxWidth: "600px", margin: "2rem auto", fontFamily: "sans-serif" }}>
       <h1>Starter Configurator</h1>
-      {configOptionsData.order.map(key => (
+      {partNumberStructure.map(segment => (
         <StepSelector
-          key={key}
-          stepKey={key}
-          options={configOptionsData.options[key]}
-          selection={selections[key]}
+          key={segment.Segment}
+          stepKey={segment.Segment}
+          options={segment}
+          selection={selections[segment.Segment]}
           onChange={handleSelection}
         />
       ))}
