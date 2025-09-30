@@ -1,0 +1,95 @@
+/* Brand Styles for Starter Configurator */
+
+:root {
+  --primary-blue: #224191;
+  --primary-orange: #ee5a35;
+  --primary-white: #fff;
+  --text-gray: #606060;
+  --text-light-blue: #5eb0e5;
+  --smoke-700: #d2d6d8;
+  --smoke-600: #eceeee;
+  --smoke-500: #f4f4f4;
+  --smoke-400: #f9f9f9;
+}
+
+body {
+  font-family: "Saira Condensed", sans-serif;
+  font-size: 13px;
+  color: var(--text-gray);
+  background: var(--primary-white);
+  margin: 0;
+  padding: 0;
+}
+
+.configurator-container {
+  background: var(--smoke-400);
+  border-radius: 14px;
+  box-shadow: 0 2px 8px var(--smoke-700);
+  padding: 1rem 1.2rem;
+  max-width: 420px;
+  margin: 1rem auto;
+}
+
+h1 {
+  color: var(--primary-blue);
+  font-size: 1.3rem;
+  margin-bottom: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 1px;
+}
+
+label {
+  color: var(--primary-blue);
+  font-size: 1rem;
+  font-weight: 600;
+}
+
+select:focus, input[type="text"]:focus {
+  border-color: var(--primary-blue);
+  outline: none;
+}
+
+button, input[type="button"], input[type="submit"], input[type="reset"] {
+  padding: 0.35rem 0.9rem;
+  color: var(--primary-white) !important;
+  background-color: var(--primary-blue);
+  border: none;
+  border-radius: 12px;
+  font-size: 0.95rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  cursor: pointer;
+  margin-right: 0.3rem;
+  margin-top: 0.3rem;
+  transition: background 0.2s;
+}
+button:hover, input[type="button"]:hover, input[type="submit"]:hover, input[type="reset"]:hover {
+  background-color: var(--primary-orange);
+}
+
+.summary {
+  margin-top: 1rem;
+  background: var(--smoke-500);
+  border-radius: 8px;
+  padding: 0.7rem 1rem;
+  box-shadow: 0 1px 4px var(--smoke-600);
+}
+.summary h2 {
+  color: var(--primary-blue);
+  font-size: 1.05rem;
+  margin-bottom: 0.5rem;
+}
+.summary code {
+  color: var(--primary-orange);
+  font-size: 0.98rem;
+  background: var(--smoke-600);
+  padding: 0.1rem 0.3rem;
+  border-radius: 4px;
+}
+
+@media (max-width: 700px) {
+  .configurator-container {
+    padding: 0.5rem;
+    max-width: 98vw;
+  }
+}

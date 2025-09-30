@@ -1,16 +1,18 @@
 import React from 'react';
 
-function Summary({ sku, onEmail }) {
+
+function Summary({ sku, onEmail, onReset }) {
   return (
-    <div style={{ marginTop: "2rem" }}>
-      {sku ? (
+    <div className="summary">
+      {sku && (
         <>
           <h2>Final SKU: <code>{sku}</code></h2>
           <button onClick={onEmail}>Email to Sales Team</button>
         </>
-      ) : (
-        <h2>SKU not valid or incomplete.</h2>
       )}
+      <div style={{ marginTop: '1rem' }}>
+        <button onClick={onReset}>Reset</button>
+      </div>
     </div>
   );
 }
