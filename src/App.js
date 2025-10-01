@@ -84,7 +84,7 @@ function App() {
   return (
     <div className="configurator-container">
       <img
-        src={process.env.PUBLIC_URL + '/BlazerLogoBlue.png'}
+        src="/BlazerLogoBlue.png"
         alt="Blazer Electric Logo"
         style={{
           display: 'block',
