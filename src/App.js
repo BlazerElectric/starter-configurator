@@ -34,10 +34,12 @@ function App() {
     setFilteredSKUs(filtered);
   }, [selections, partNumberStructure]);
 
-  // Build and validate SKU from selections
+  // Build and validate SKU from selections, always include Prefix 'S'
   useEffect(() => {
     const validSKUsSet = new Set(filteredSKUs);
-    const result = buildAndValidateSKU(selections, partNumberStructure, validSKUsSet);
+    // Always include Prefix 'S' in the selections
+    const selectionsWithPrefix = { Prefix: 'S', ...selections };
+    const result = buildAndValidateSKU(selectionsWithPrefix, partNumberStructure, validSKUsSet);
     setSku(result);
   }, [selections, filteredSKUs, partNumberStructure]);
 
@@ -81,6 +83,8 @@ function App() {
     );
   };
 
+  // Remove the Starter segment from the UI (always 'S')
+  const visibleSegments = partNumberStructure.filter(seg => seg.Segment !== 'Prefix');
   return (
     <div className="configurator-container">
       <img
@@ -95,11 +99,11 @@ function App() {
         }}
       />
       <h1>Starter Configurator</h1>
-      {partNumberStructure.map((segment, idx) => (
+      {visibleSegments.map((segment, idx) => (
         <StepSelector
           key={segment.Segment}
           stepKey={segment.Segment}
-          options={{ ...segment, ValidOptions: getFilteredOptions(segment, idx) }}
+          options={{ ...segment, ValidOptions: getFilteredOptions(segment, idx + 1) }}
           selection={selections[segment.Segment]}
           onChange={handleSelection}
         />

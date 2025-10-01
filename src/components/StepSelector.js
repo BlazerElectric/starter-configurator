@@ -19,7 +19,7 @@ function StepSelector({ options, selection, onChange, stepKey }) {
         >
           <option value="" disabled>Select...</option>
           {choices.map(([value, label]) => (
-            <option key={value} value={value}>{label} ({value})</option>
+            <option key={value} value={value}>{label}</option>
           ))}
         </select>
       ) : (
