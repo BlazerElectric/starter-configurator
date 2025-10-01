@@ -1,6 +1,6 @@
 import React from 'react';
 
-function StepSelector({ options, selection, onChange, stepKey }) {
+function StepSelector({ options, selection, onChange, stepKey, disabled }) {
   const validOptions = options.ValidOptions;
   let choices = [];
   if (typeof validOptions === 'object' && validOptions !== null) {
@@ -16,6 +16,7 @@ function StepSelector({ options, selection, onChange, stepKey }) {
         <select
           value={selection || ''}
           onChange={e => onChange(stepKey, e.target.value)}
+          disabled={disabled}
         >
           <option value="" disabled>Select...</option>
           {choices.map(([value, label]) => (
@@ -28,6 +29,7 @@ function StepSelector({ options, selection, onChange, stepKey }) {
           value={selection || ''}
           placeholder="Enter value"
           onChange={e => onChange(stepKey, e.target.value)}
+          disabled={disabled}
         />
       )}
     </div>

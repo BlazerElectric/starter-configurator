@@ -99,15 +99,20 @@ function App() {
         }}
       />
       <h1>Starter Configurator</h1>
-      {visibleSegments.map((segment, idx) => (
-        <StepSelector
-          key={segment.Segment}
-          stepKey={segment.Segment}
-          options={{ ...segment, ValidOptions: getFilteredOptions(segment, idx + 1) }}
-          selection={selections[segment.Segment]}
-          onChange={handleSelection}
-        />
-      ))}
+      {visibleSegments.map((segment, idx) => {
+        // Disable this dropdown if any previous segment is not selected
+        const isDisabled = visibleSegments.slice(0, idx).some(prevSeg => !selections[prevSeg.Segment]);
+        return (
+          <StepSelector
+            key={segment.Segment}
+            stepKey={segment.Segment}
+            options={{ ...segment, ValidOptions: getFilteredOptions(segment, idx + 1) }}
+            selection={selections[segment.Segment]}
+            onChange={handleSelection}
+            disabled={isDisabled}
+          />
+        );
+      })}
       <Summary sku={sku} onEmail={handleEmail} onReset={handleReset} />
     </div>
   );
