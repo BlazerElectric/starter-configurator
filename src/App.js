@@ -149,7 +149,38 @@ function App() {
           height: 'auto'
         }}
       />
-      <h1>Starter Configurator</h1>
+      <h1 style={{
+        textAlign: 'center',
+        fontSize: '2.5rem',
+        margin: '0 0 1rem 0',
+        letterSpacing: '0.02em',
+        fontWeight: 700
+      }}>Blazer Panel Builder</h1>
+      <div style={{
+        textAlign: 'center',
+        marginBottom: '1.5rem',
+        maxWidth: 600,
+        marginLeft: 'auto',
+        marginRight: 'auto',
+        color: '#333',
+        fontSize: '0.92rem',
+        lineHeight: 1.6
+      }}>
+        <div style={{ marginBottom: '0.5rem' }}>
+          <span style={{ display: 'block', marginBottom: '0.3em' }}>
+            Select each option in order. Choices will update automatically to ensure only valid combinations are available.
+          </span>
+          <span style={{ display: 'block', marginBottom: '0.3em' }}>
+            When finished, your SKU and summary will appear below, ready to email to the sales team.
+          </span>
+        </div>
+  <div style={{ textAlign: 'left', display: 'inline-block', margin: '0 auto', fontSize: '0.90em', paddingLeft: '1.2em' }}>
+          <ul style={{ margin: 0, paddingLeft: '1.2em' }}>
+            <li>For “External Control Voltage,” please specify the voltage.</li>
+            <li>For “LEDs,” provide the color and label for each LED.</li>
+          </ul>
+        </div>
+      </div>
       {visibleSegments.map((segment, idx) => {
         // Disable this dropdown if any previous segment is not selected
         const isDisabled = visibleSegments.slice(0, idx).some(prevSeg => !selections[prevSeg.Segment]);

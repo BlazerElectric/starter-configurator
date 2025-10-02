@@ -62,11 +62,11 @@
       "Length": 2,
       "Description": "Overload range",
       "ValidOptions": {
-        "05": "1-5A, CA7-9 to 23",
-        "16": "3.2-16A CA7-9 to 23",
-        "27": "5.4-27A CA7-9 to 55",
-        "55": "11-55A CA7-30 to 55",
-        "XX": "20-100A CA7-60 to 85"
+  "05": "1-5A",
+  "16": "3.2-16A",
+  "27": "5.4-27A",
+  "55": "11-55A",
+  "XX": "20-100A"
       }
     },
     {
@@ -74,7 +74,7 @@
       "Length": 1,
       "Description": "Control voltage type",
       "ValidOptions": {
-  "C": "Common Control",
+  "C": "Common Control (Motor V)",
   "X": "External Control",
   "T": "Control Transformer (Default 120V)"
       }
