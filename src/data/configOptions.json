@@ -74,9 +74,9 @@
       "Length": 1,
       "Description": "Control voltage type",
       "ValidOptions": {
-        "C": "Common Control (Default 120V)",
-        "X": "External Control",
-        "T": "Control Transformer"
+  "C": "Common Control",
+  "X": "External Control",
+  "T": "Control Transformer (Default 120V)"
       }
     },
     {
@@ -84,11 +84,11 @@
       "Length": 3,
       "Description": "Control configuration",
       "ValidOptions": {
-        "HXX": "HOA",
-        "HSX": "HOA & Start PB",
-        "HSS": "HOA & Start/Stop PB or SS",
-        "XSS": "Start/Stop PB",
-        "XXX": "None"
+  "HXX": "HOA",
+  "HSX": "HOA & Start PB",
+  "HSS": "HOA & Start/Stop PB",
+  "XSS": "Start/Stop PB",
+  "XXX": "None"
       }
     },
     {

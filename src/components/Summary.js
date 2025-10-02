@@ -1,7 +1,8 @@
 import React from 'react';
 
 
-function Summary({ sku, onEmail, onReset }) {
+
+function Summary({ sku, onEmail, onReset, externalVoltage, ledInfo }) {
   return (
     <div className="summary">
       {sku && (
@@ -9,6 +10,27 @@ function Summary({ sku, onEmail, onReset }) {
           <h2>Final SKU: <code>{sku}</code></h2>
           <button onClick={onEmail}>Email to Sales Team</button>
         </>
+      )}
+      {externalVoltage && (
+        <div style={{ marginTop: '1rem' }}>
+          <strong>External Control Voltage:</strong> {externalVoltage}
+        </div>
+      )}
+      {ledInfo && ledInfo.length > 0 && ledInfo.some(led => led.color || led.label) && (
+        <div style={{ marginTop: '1rem' }}>
+          <strong>LED Details:</strong>
+          <ul>
+            {ledInfo.map((led, idx) => (
+              (led.color || led.label) ? (
+                <li key={idx}>
+                  {led.color && <span>Color: {led.color}</span>}
+                  {led.color && led.label && ' | '}
+                  {led.label && <span>Label: {led.label}</span>}
+                </li>
+              ) : null
+            ))}
+          </ul>
+        </div>
       )}
       <div style={{ marginTop: '1rem' }}>
         <button onClick={onReset}>Reset</button>

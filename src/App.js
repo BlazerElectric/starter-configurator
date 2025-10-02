@@ -10,6 +10,8 @@ import skusData from './data/skus.json';
 function App() {
   const [selections, setSelections] = useState({});
   const [sku, setSku] = useState(null);
+  const [externalVoltage, setExternalVoltage] = useState('');
+  const [ledInfo, setLedInfo] = useState([{ color: '', label: '' }]);
 
   const partNumberStructure = configOptionsData.PartNumberStructure;
   const [filteredSKUs, setFilteredSKUs] = useState(skusData);
@@ -52,6 +54,9 @@ function App() {
         if (i > idx) delete newSelections[seg.Segment];
       });
       newSelections[segment] = value;
+      // Reset extra info if needed
+      if (segment === 'ControlVoltage' && value !== 'X') setExternalVoltage('');
+      if (segment === 'LEDs' && value !== '1' && value !== '2') setLedInfo([{ color: '', label: '' }]);
       return newSelections;
     });
   };
@@ -59,12 +64,38 @@ function App() {
 
   const handleEmail = () => {
     if (!sku) return;
-    const mailto = `mailto:sales@example.com?subject=SKU Request&body=Please quote SKU: ${sku}`;
+    // Build summary of selections
+    let summary = `Please quote SKU: ${sku}`;
+    // Add all selections
+    summary += '\n\nSelections:';
+    partNumberStructure.forEach(seg => {
+      if (seg.Segment !== 'Prefix' && selections[seg.Segment]) {
+        summary += `\n- ${seg.Description || seg.Segment}: ${selections[seg.Segment]}`;
+      }
+    });
+    // Add external voltage if present
+    if (selections['ControlVoltage'] === 'X' && externalVoltage) {
+      summary += `\n\nExternal Control Voltage: ${externalVoltage}`;
+    }
+    // Add LED info if present
+    if (ledCount > 0 && ledInfo.some(led => led.color || led.label)) {
+      summary += `\n\nLED Details:`;
+      ledInfo.forEach((led, idx) => {
+        if (led.color || led.label) {
+          summary += `\n  LED ${idx + 1}:`;
+          if (led.color) summary += ` Color: ${led.color}`;
+          if (led.label) summary += ` | Label: ${led.label}`;
+        }
+      });
+    }
+    const mailto = `mailto:sales@example.com?subject=SKU Request&body=${encodeURIComponent(summary)}`;
     window.location.href = mailto;
   };
 
   const handleReset = () => {
     setSelections({});
+    setExternalVoltage('');
+    setLedInfo([{ color: '', label: '' }]);
   };
 
   // For each segment, compute valid options based on filtered SKUs and current selections
@@ -85,6 +116,26 @@ function App() {
 
   // Remove the Starter segment from the UI (always 'S')
   const visibleSegments = partNumberStructure.filter(seg => seg.Segment !== 'Prefix');
+  // Helper for LED info fields
+  const handleLedInfoChange = (idx, field, value) => {
+    setLedInfo(prev => {
+      const updated = [...prev];
+      updated[idx][field] = value;
+      return updated;
+    });
+  };
+  // Add or remove LED info fields
+  const ledCount = parseInt(selections['LEDs'] || '0', 10);
+  useEffect(() => {
+    if (ledCount > 0) {
+      setLedInfo(prev => {
+        const arr = [...prev];
+        while (arr.length < ledCount) arr.push({ color: '', label: '' });
+        return arr.slice(0, ledCount);
+      });
+    }
+  }, [ledCount]);
+
   return (
     <div className="configurator-container">
       <img
@@ -113,7 +164,59 @@ function App() {
           />
         );
       })}
-      <Summary sku={sku} onEmail={handleEmail} onReset={handleReset} />
+
+      {/* Extra info for External Control Voltage */}
+      {selections['ControlVoltage'] === 'X' && (
+        <div style={{ margin: '1rem 0' }}>
+          <label>
+            Please specify External Control Voltage:
+            <input
+              type="text"
+              value={externalVoltage}
+              onChange={e => setExternalVoltage(e.target.value)}
+              placeholder="e.g. 24V, 120V, etc."
+              style={{ marginLeft: '0.5rem' }}
+            />
+          </label>
+        </div>
+      )}
+
+      {/* Extra info for LEDs */}
+      {ledCount > 0 && (
+        <div style={{ margin: '1rem 0' }}>
+          <label>Provide LED color and label information:</label>
+          {ledInfo.map((led, idx) => (
+            <div key={idx} style={{ margin: '0.5rem 0', paddingLeft: '1rem' }}>
+              <select
+                value={led.color}
+                onChange={e => handleLedInfoChange(idx, 'color', e.target.value)}
+                style={{ marginRight: '0.5rem' }}
+              >
+                <option value="">Select Color</option>
+                <option value="Amber">Amber</option>
+                <option value="Blue">Blue</option>
+                <option value="Green">Green</option>
+                <option value="Red">Red</option>
+                <option value="Yellow">Yellow</option>
+              </select>
+              <input
+                type="text"
+                value={led.label}
+                onChange={e => handleLedInfoChange(idx, 'label', e.target.value)}
+                placeholder={`Label for LED ${idx + 1}`}
+              />
+            </div>
+          ))}
+        </div>
+      )}
+
+      <Summary
+        sku={sku}
+        onEmail={handleEmail}
+        onReset={handleReset}
+        externalVoltage={selections['ControlVoltage'] === 'X' ? externalVoltage : ''}
+        ledInfo={ledCount > 0 ? ledInfo : []}
+      />
     </div>
   );
 }
