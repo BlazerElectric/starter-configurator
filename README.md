@@ -1,7 +1,7 @@
 
-# Starter Configurator
+# Motor Starter Builder
 
-This is a web-based configurator for building valid motor control panel SKUs for Blazer Electric. The app guides users through a series of dropdowns, dynamically filtering options based on previous selections to ensure only compatible parts are chosen.
+This is a web-based configurator for building valid motor control panel SKUs for Blazer Electric. The app (Motor Starter Builder) guides users through a series of dropdowns, dynamically filtering options based on previous selections to ensure only compatible parts are chosen.
 
 ## Features
 
