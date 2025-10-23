@@ -2,7 +2,7 @@ import React from 'react';
 
 
 
-function Summary({ sku, onEmail, onReset, externalVoltage, ledInfo }) {
+function Summary({ sku, onEmail, onReset, externalVoltage, ledInfo, contact }) {
   return (
     <div className="summary">
       {sku && (
@@ -14,6 +14,13 @@ function Summary({ sku, onEmail, onReset, externalVoltage, ledInfo }) {
       {externalVoltage && (
         <div style={{ marginTop: '1rem' }}>
           <strong>External Control Voltage:</strong> {externalVoltage}
+        </div>
+      )}
+      {contact && (contact.name || contact.company || contact.email || contact.phone) && (
+        <div style={{ marginTop: '1rem' }}>
+          <strong>Contact Info:</strong>
+          <div>{contact.name}{contact.company && ` — ${contact.company}`}</div>
+          <div>{contact.email}{contact.phone && ` — ${contact.phone}`}</div>
         </div>
       )}
       {ledInfo && ledInfo.length > 0 && ledInfo.some(led => led.color || led.label) && (

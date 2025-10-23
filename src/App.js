@@ -77,6 +77,14 @@ function App() {
     if (selections['ControlVoltage'] === 'X' && externalVoltage) {
       summary += `\n\nExternal Control Voltage: ${externalVoltage}`;
     }
+    // Add contact info if present
+    if (contact && (contact.name || contact.company || contact.email || contact.phone)) {
+      summary += `\n\nContact Information:`;
+      if (contact.name) summary += `\n- Name: ${contact.name}`;
+      if (contact.company) summary += `\n- Company: ${contact.company}`;
+      if (contact.email) summary += `\n- Email: ${contact.email}`;
+      if (contact.phone) summary += `\n- Phone: ${contact.phone}`;
+    }
     // Add LED info if present
     if (ledCount > 0 && ledInfo.some(led => led.color || led.label)) {
       summary += `\n\nLED Details:`;
@@ -96,6 +104,13 @@ function App() {
     setSelections({});
     setExternalVoltage('');
     setLedInfo([{ color: '', label: '' }]);
+  };
+
+  // Contact info
+  const [contact, setContact] = useState({ name: '', company: '', email: '', phone: '' });
+
+  const handleContactChange = (field, value) => {
+    setContact(prev => ({ ...prev, [field]: value }));
   };
 
   // For each segment, compute valid options based on filtered SKUs and current selections
@@ -240,6 +255,43 @@ function App() {
           ))}
         </div>
       )}
+
+      {/* Contact information */}
+      <div style={{ margin: '1.25rem 0', textAlign: 'left', maxWidth: 600, marginLeft: 'auto', marginRight: 'auto' }}>
+        <h3 style={{ margin: '0 0 0.5rem 0' }}>Contact Information</h3>
+        <div style={{ display: 'flex', gap: '0.5rem', marginBottom: '0.5rem' }}>
+          <input
+            type="text"
+            placeholder="Name"
+            value={contact.name}
+            onChange={e => handleContactChange('name', e.target.value)}
+            style={{ flex: 1 }}
+          />
+          <input
+            type="text"
+            placeholder="Company"
+            value={contact.company}
+            onChange={e => handleContactChange('company', e.target.value)}
+            style={{ flex: 1 }}
+          />
+        </div>
+        <div style={{ display: 'flex', gap: '0.5rem' }}>
+          <input
+            type="email"
+            placeholder="Email"
+            value={contact.email}
+            onChange={e => handleContactChange('email', e.target.value)}
+            style={{ flex: 1 }}
+          />
+          <input
+            type="tel"
+            placeholder="Phone"
+            value={contact.phone}
+            onChange={e => handleContactChange('phone', e.target.value)}
+            style={{ flex: 1 }}
+          />
+        </div>
+      </div>
 
       <Summary
         sku={sku}
