@@ -319,7 +319,8 @@ function App() {
         externalVoltage={selections['ControlVoltage'] === 'X' ? externalVoltage : ''}
         ledInfo={ledCount > 0 ? ledInfo : []}
         contact={contact}
-        sendDisabled={!(contact.name && contact.email)}
+        sendDisabled={!isSendReady}
+        attemptedSend={attemptedSend}
       />
     </div>
   );
