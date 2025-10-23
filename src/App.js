@@ -96,7 +96,7 @@ function App() {
         }
       });
     }
-    const mailto = `mailto:sales@example.com?subject=SKU Request&body=${encodeURIComponent(summary)}`;
+  const mailto = `mailto:profab@blazerelectricsupply.com?subject=SKU Request&body=${encodeURIComponent(summary)}`;
     window.location.href = mailto;
   };
 
