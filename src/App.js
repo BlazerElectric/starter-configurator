@@ -155,7 +155,7 @@ function App() {
         margin: '0 0 1rem 0',
         letterSpacing: '0.02em',
         fontWeight: 700
-      }}>Blazer Panel Builder</h1>
+      }}>Motor Starter Builder</h1>
       <div style={{
         textAlign: 'center',
         marginBottom: '1.5rem',
