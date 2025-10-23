@@ -2,16 +2,23 @@ import React from 'react';
 
 
 
-function Summary({ sku, onEmail, onReset, externalVoltage, ledInfo, contact, sendDisabled }) {
+function Summary({ sku, onEmail, onReset, externalVoltage, ledInfo, contact, sendDisabled, attemptedSend }) {
   return (
     <div className="summary">
       {sku && (
         <>
           <h2>Final SKU: <code>{sku}</code></h2>
-          <button onClick={onEmail} disabled={sendDisabled} style={sendDisabled ? { opacity: 0.5, cursor: 'not-allowed' } : {}}>
-            Email to Sales Team
-          </button>
         </>
+      )}
+      <div>
+        <button onClick={onEmail} className={sendDisabled ? 'btn-disabled' : ''}>
+          Email to Sales Team
+        </button>
+      </div>
+      {attemptedSend && sendDisabled && (
+        <div style={{ color: 'red', marginTop: '0.5rem' }}>
+          Please fill out the required fields (Name and valid Email) and ensure a valid SKU is selected.
+        </div>
       )}
       {externalVoltage && (
         <div style={{ marginTop: '1rem' }}>

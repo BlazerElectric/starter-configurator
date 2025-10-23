@@ -121,6 +121,13 @@ function App() {
     let pos = 0;
     for (let i = 0; i < idx; i++) {
       pos += partNumberStructure[i].Length;
+
+    // Validation / attempted send state
+    const [attemptedSend, setAttemptedSend] = useState(false);
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    const isNameValid = contact.name.trim().length > 0;
+    const isEmailValid = emailRegex.test(contact.email.trim());
+    const isSendReady = Boolean(sku && isNameValid && isEmailValid);
     }
     const possible = new Set(filteredSKUs.map(sku => sku.substr(pos, segment.Length)));
     // Only keep options that are still possible
@@ -260,14 +267,14 @@ function App() {
       <div style={{ margin: '1.25rem 0', textAlign: 'left', maxWidth: 600, marginLeft: 'auto', marginRight: 'auto' }}>
         <h3 style={{ margin: '0 0 0.5rem 0', color: 'var(--primary-blue)' }}>Contact Information</h3>
         <div style={{ display: 'flex', gap: '0.5rem', marginBottom: '0.5rem' }}>
-          <label style={{ flex: 1 }}>
-            Name
+          <label style={{ flex: 1, color: isNameValid || !attemptedSend ? 'var(--primary-blue)' : 'red' }}>
+            Name {attemptedSend && !isNameValid && <span style={{ color: 'red' }}>*</span>}
             <input
               type="text"
               placeholder="Name"
               value={contact.name}
               onChange={e => handleContactChange('name', e.target.value)}
-              style={{ width: '100%', marginTop: '0.25rem' }}
+              style={{ width: '100%', marginTop: '0.25rem', borderColor: attemptedSend && !isNameValid ? 'red' : undefined }}
             />
           </label>
           <label style={{ flex: 1 }}>
@@ -282,14 +289,14 @@ function App() {
           </label>
         </div>
         <div style={{ display: 'flex', gap: '0.5rem' }}>
-          <label style={{ flex: 1 }}>
-            Email
+          <label style={{ flex: 1, color: isEmailValid || !attemptedSend ? 'var(--primary-blue)' : 'red' }}>
+            Email {attemptedSend && !isEmailValid && <span style={{ color: 'red' }}>*</span>}
             <input
               type="email"
               placeholder="Email"
               value={contact.email}
               onChange={e => handleContactChange('email', e.target.value)}
-              style={{ width: '100%', marginTop: '0.25rem' }}
+              style={{ width: '100%', marginTop: '0.25rem', borderColor: attemptedSend && !isEmailValid ? 'red' : undefined }}
             />
           </label>
           <label style={{ flex: 1 }}>
