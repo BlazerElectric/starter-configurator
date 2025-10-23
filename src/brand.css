@@ -44,6 +44,16 @@ label {
   font-weight: 600;
 }
 
+.required-note {
+  font-size: 0.85rem;
+  color: #666;
+}
+
+.btn-disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
 select:focus, input[type="text"]:focus {
   border-color: var(--primary-blue);
   outline: none;

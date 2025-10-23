@@ -258,38 +258,50 @@ function App() {
 
       {/* Contact information */}
       <div style={{ margin: '1.25rem 0', textAlign: 'left', maxWidth: 600, marginLeft: 'auto', marginRight: 'auto' }}>
-        <h3 style={{ margin: '0 0 0.5rem 0' }}>Contact Information</h3>
+        <h3 style={{ margin: '0 0 0.5rem 0', color: 'var(--primary-blue)' }}>Contact Information</h3>
         <div style={{ display: 'flex', gap: '0.5rem', marginBottom: '0.5rem' }}>
-          <input
-            type="text"
-            placeholder="Name"
-            value={contact.name}
-            onChange={e => handleContactChange('name', e.target.value)}
-            style={{ flex: 1 }}
-          />
-          <input
-            type="text"
-            placeholder="Company"
-            value={contact.company}
-            onChange={e => handleContactChange('company', e.target.value)}
-            style={{ flex: 1 }}
-          />
+          <label style={{ flex: 1 }}>
+            Name
+            <input
+              type="text"
+              placeholder="Name"
+              value={contact.name}
+              onChange={e => handleContactChange('name', e.target.value)}
+              style={{ width: '100%', marginTop: '0.25rem' }}
+            />
+          </label>
+          <label style={{ flex: 1 }}>
+            Company
+            <input
+              type="text"
+              placeholder="Company"
+              value={contact.company}
+              onChange={e => handleContactChange('company', e.target.value)}
+              style={{ width: '100%', marginTop: '0.25rem' }}
+            />
+          </label>
         </div>
         <div style={{ display: 'flex', gap: '0.5rem' }}>
-          <input
-            type="email"
-            placeholder="Email"
-            value={contact.email}
-            onChange={e => handleContactChange('email', e.target.value)}
-            style={{ flex: 1 }}
-          />
-          <input
-            type="tel"
-            placeholder="Phone"
-            value={contact.phone}
-            onChange={e => handleContactChange('phone', e.target.value)}
-            style={{ flex: 1 }}
-          />
+          <label style={{ flex: 1 }}>
+            Email
+            <input
+              type="email"
+              placeholder="Email"
+              value={contact.email}
+              onChange={e => handleContactChange('email', e.target.value)}
+              style={{ width: '100%', marginTop: '0.25rem' }}
+            />
+          </label>
+          <label style={{ flex: 1 }}>
+            Phone
+            <input
+              type="tel"
+              placeholder="Phone"
+              value={contact.phone}
+              onChange={e => handleContactChange('phone', e.target.value)}
+              style={{ width: '100%', marginTop: '0.25rem' }}
+            />
+          </label>
         </div>
       </div>
 
@@ -299,6 +311,8 @@ function App() {
         onReset={handleReset}
         externalVoltage={selections['ControlVoltage'] === 'X' ? externalVoltage : ''}
         ledInfo={ledCount > 0 ? ledInfo : []}
+        contact={contact}
+        sendDisabled={!(contact.name && contact.email)}
       />
     </div>
   );

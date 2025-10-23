@@ -2,13 +2,15 @@ import React from 'react';
 
 
 
-function Summary({ sku, onEmail, onReset, externalVoltage, ledInfo, contact }) {
+function Summary({ sku, onEmail, onReset, externalVoltage, ledInfo, contact, sendDisabled }) {
   return (
     <div className="summary">
       {sku && (
         <>
           <h2>Final SKU: <code>{sku}</code></h2>
-          <button onClick={onEmail}>Email to Sales Team</button>
+          <button onClick={onEmail} disabled={sendDisabled} style={sendDisabled ? { opacity: 0.5, cursor: 'not-allowed' } : {}}>
+            Email to Sales Team
+          </button>
         </>
       )}
       {externalVoltage && (
