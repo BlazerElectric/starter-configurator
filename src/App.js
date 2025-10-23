@@ -113,6 +113,13 @@ function App() {
     setContact(prev => ({ ...prev, [field]: value }));
   };
 
+  // Validation / attempted send state
+  const [attemptedSend, setAttemptedSend] = useState(false);
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  const isNameValid = contact.name.trim().length > 0;
+  const isEmailValid = emailRegex.test(contact.email.trim());
+  const isSendReady = Boolean(sku && isNameValid && isEmailValid);
+
   // For each segment, compute valid options based on filtered SKUs and current selections
   const getFilteredOptions = (segment, idx) => {
     const validOptions = segment.ValidOptions;
@@ -121,13 +128,6 @@ function App() {
     let pos = 0;
     for (let i = 0; i < idx; i++) {
       pos += partNumberStructure[i].Length;
-
-    // Validation / attempted send state
-    const [attemptedSend, setAttemptedSend] = useState(false);
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    const isNameValid = contact.name.trim().length > 0;
-    const isEmailValid = emailRegex.test(contact.email.trim());
-    const isSendReady = Boolean(sku && isNameValid && isEmailValid);
     }
     const possible = new Set(filteredSKUs.map(sku => sku.substr(pos, segment.Length)));
     // Only keep options that are still possible
