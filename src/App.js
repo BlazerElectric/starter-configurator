@@ -85,6 +85,11 @@ function App() {
       if (contact.email) summary += `\n- Email: ${contact.email}`;
       if (contact.phone) summary += `\n- Phone: ${contact.phone}`;
     }
+    // Add comments/questions if present
+    if (comments && comments.trim()) {
+      summary += `\n\nQuestions / Comments:`;
+      summary += `\n${comments.trim()}`;
+    }
     // Add LED info if present
     if (ledCount > 0 && ledInfo.some(led => led.color || led.label)) {
       summary += `\n\nLED Details:`;
@@ -112,6 +117,9 @@ function App() {
   const handleContactChange = (field, value) => {
     setContact(prev => ({ ...prev, [field]: value }));
   };
+
+  // Comments / questions from customer
+  const [comments, setComments] = useState('');
 
   // Validation / attempted send state
   const [attemptedSend, setAttemptedSend] = useState(false);
@@ -263,7 +271,7 @@ function App() {
         </div>
       )}
 
-      {/* Contact information */}
+  {/* Contact information */}
       <div style={{ margin: '1.25rem 0', textAlign: 'left', maxWidth: 600, marginLeft: 'auto', marginRight: 'auto' }}>
         <h3 style={{ margin: '0 0 0.5rem 0', color: 'var(--primary-blue)' }}>Contact Information</h3>
         <div style={{ display: 'flex', gap: '0.5rem', marginBottom: '0.5rem' }}>
@@ -311,6 +319,17 @@ function App() {
           </label>
         </div>
       </div>
+      {/* Comments / Questions */}
+      <div style={{ margin: '0.75rem 0 1rem 0', maxWidth: 600, marginLeft: 'auto', marginRight: 'auto' }}>
+        <label style={{ display: 'block', color: 'var(--primary-blue)', marginBottom: '0.25rem' }}>Additional questions / comments</label>
+        <textarea
+          placeholder="Enter any questions or additional info for sales here..."
+          value={comments}
+          onChange={e => setComments(e.target.value)}
+          rows={4}
+          style={{ width: '100%', padding: '0.5rem', borderRadius: 6 }}
+        />
+      </div>
 
       <Summary
         sku={sku}
@@ -321,6 +340,7 @@ function App() {
         contact={contact}
         sendDisabled={!isSendReady}
         attemptedSend={attemptedSend}
+        comments={comments}
       />
     </div>
   );
