@@ -2,7 +2,7 @@ import React from 'react';
 
 
 
-function Summary({ sku, onEmail, onReset, externalVoltage, ledInfo, contact, sendDisabled, attemptedSend, comments }) {
+function Summary({ sku, onEmail, onReset, externalVoltage, ledInfo, contact, sendDisabled, attemptedSend, comments, needsUL }) {
   return (
     <div className="summary">
       {sku && (
@@ -30,6 +30,12 @@ function Summary({ sku, onEmail, onReset, externalVoltage, ledInfo, contact, sen
           <strong>Contact Info:</strong>
           <div>{contact.name}{contact.company && ` — ${contact.company}`}</div>
           <div>{contact.email}{contact.phone && ` — ${contact.phone}`}</div>
+        </div>
+      )}
+      {typeof needsUL !== 'undefined' && (
+        <div style={{ marginTop: '1rem' }}>
+          <strong>Needs UL Listed:</strong>
+          <span style={{ marginLeft: '0.5rem' }} className={needsUL ? 'ul-yes' : 'ul-no'}>{needsUL ? 'Yes' : 'No'}</span>
         </div>
       )}
       {typeof comments !== 'undefined' && comments && comments.trim() && (
