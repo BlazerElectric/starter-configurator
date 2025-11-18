@@ -85,6 +85,8 @@ function App() {
       if (contact.email) summary += `\n- Email: ${contact.email}`;
       if (contact.phone) summary += `\n- Phone: ${contact.phone}`;
     }
+    // Add UL listing info
+    summary += `\n\nNeeds to be UL listed: ${needsUL ? 'Yes' : 'No'}`;
     // Add comments/questions if present
     if (comments && comments.trim()) {
       summary += `\n\nQuestions / Comments:`;
@@ -120,6 +122,9 @@ function App() {
 
   // Comments / questions from customer
   const [comments, setComments] = useState('');
+
+  // UL listing checkbox
+  const [needsUL, setNeedsUL] = useState(false);
 
   // Validation / attempted send state
   const [attemptedSend, setAttemptedSend] = useState(false);
@@ -270,6 +275,20 @@ function App() {
           ))}
         </div>
       )}
+      {/* UL listing selection */}
+      <div style={{ maxWidth: 600, margin: '0 auto 0.5rem auto', textAlign: 'left' }}>
+        <label style={{ color: 'var(--primary-blue)', display: 'block', marginBottom: '0.25rem' }}>Needs to be UL listed?</label>
+        <div style={{ display: 'flex', gap: '1rem' }}>
+          <label style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+            <input type="radio" name="needsUL" checked={needsUL === true} onChange={() => setNeedsUL(true)} />
+            Yes
+          </label>
+          <label style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+            <input type="radio" name="needsUL" checked={needsUL === false} onChange={() => setNeedsUL(false)} />
+            No
+          </label>
+        </div>
+      </div>
 
   {/* Contact information */}
       <div style={{ margin: '1.25rem 0', textAlign: 'left', maxWidth: 600, marginLeft: 'auto', marginRight: 'auto' }}>
@@ -319,6 +338,8 @@ function App() {
           </label>
         </div>
       </div>
+      {/* (UL selection moved above Contact Information) */}
+
       {/* Comments / Questions */}
       <div style={{ margin: '0.75rem 0 1rem 0', maxWidth: 600, marginLeft: 'auto', marginRight: 'auto' }}>
         <label style={{ display: 'block', color: 'var(--primary-blue)', marginBottom: '0.25rem' }}>Additional questions / comments</label>
@@ -341,6 +362,7 @@ function App() {
         sendDisabled={!isSendReady}
         attemptedSend={attemptedSend}
         comments={comments}
+        needsUL={needsUL}
       />
     </div>
   );
