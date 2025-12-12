@@ -63,7 +63,8 @@ function App() {
 
 
   const handleEmail = () => {
-    if (!sku) return;
+    setAttemptedSend(true);
+    if (!isSendReady) return;
     // Build summary of selections
     let summary = `Please quote SKU: ${sku}`;
     // Add all selections
@@ -130,8 +131,10 @@ function App() {
   const [attemptedSend, setAttemptedSend] = useState(false);
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
   const isNameValid = contact.name.trim().length > 0;
+  const isCompanyValid = contact.company.trim().length > 0;
   const isEmailValid = emailRegex.test(contact.email.trim());
-  const isSendReady = Boolean(sku && isNameValid && isEmailValid);
+  const isPhoneValid = contact.phone.trim().length > 0;
+  const isSendReady = Boolean(sku && isNameValid && isEmailValid && isCompanyValid && isPhoneValid);
 
   // For each segment, compute valid options based on filtered SKUs and current selections
   const getFilteredOptions = (segment, idx) => {
@@ -304,14 +307,14 @@ function App() {
               style={{ width: '100%', marginTop: '0.25rem', borderColor: attemptedSend && !isNameValid ? 'red' : undefined }}
             />
           </label>
-          <label style={{ flex: 1 }}>
-            Company
+          <label style={{ flex: 1, color: isCompanyValid || !attemptedSend ? 'var(--primary-blue)' : 'red' }}>
+            Company {attemptedSend && !isCompanyValid && <span style={{ color: 'red' }}>*</span>}
             <input
               type="text"
               placeholder="Company"
               value={contact.company}
               onChange={e => handleContactChange('company', e.target.value)}
-              style={{ width: '100%', marginTop: '0.25rem' }}
+              style={{ width: '100%', marginTop: '0.25rem', borderColor: attemptedSend && !isCompanyValid ? 'red' : undefined }}
             />
           </label>
         </div>
@@ -326,14 +329,14 @@ function App() {
               style={{ width: '100%', marginTop: '0.25rem', borderColor: attemptedSend && !isEmailValid ? 'red' : undefined }}
             />
           </label>
-          <label style={{ flex: 1 }}>
-            Phone
+          <label style={{ flex: 1, color: isPhoneValid || !attemptedSend ? 'var(--primary-blue)' : 'red' }}>
+            Phone {attemptedSend && !isPhoneValid && <span style={{ color: 'red' }}>*</span>}
             <input
               type="tel"
               placeholder="Phone"
               value={contact.phone}
               onChange={e => handleContactChange('phone', e.target.value)}
-              style={{ width: '100%', marginTop: '0.25rem' }}
+              style={{ width: '100%', marginTop: '0.25rem', borderColor: attemptedSend && !isPhoneValid ? 'red' : undefined }}
             />
           </label>
         </div>

@@ -97,6 +97,21 @@ button:hover, input[type="button"]:hover, input[type="submit"]:hover, input[type
   border-radius: 4px;
 }
 
+.summary .ul-yes {
+  color: #1b7a2f;
+  font-weight: 700;
+  background: rgba(27,122,47,0.06);
+  padding: 0.12rem 0.4rem;
+  border-radius: 6px;
+}
+.summary .ul-no {
+  color: #70757a;
+  font-weight: 600;
+  background: rgba(112,117,122,0.04);
+  padding: 0.12rem 0.4rem;
+  border-radius: 6px;
+}
+
 @media (max-width: 700px) {
   .configurator-container {
     padding: 0.5rem;
