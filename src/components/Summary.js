@@ -17,7 +17,7 @@ function Summary({ sku, onEmail, onReset, externalVoltage, ledInfo, contact, sen
       </div>
       {attemptedSend && sendDisabled && (
         <div style={{ color: 'red', marginTop: '0.5rem' }}>
-          Please fill out the required fields (Name and valid Email) and ensure a valid SKU is selected.
+          Please fill out the required fields (Name, Company, Email, Phone) and ensure a valid SKU is selected.
         </div>
       )}
       {externalVoltage && (
