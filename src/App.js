@@ -62,9 +62,8 @@ function App() {
   };
 
 
-  const handleEmail = () => {
-    setAttemptedSend(true);
-    if (!isSendReady) return;
+  const buildMailto = () => {
+    if (!isSendReady) return '';
     // Build summary of selections
     let summary = `Please quote SKU: ${sku}`;
     // Add all selections
@@ -104,7 +103,12 @@ function App() {
         }
       });
     }
-  window.location.href = `mailto:profab@blazerelectricsupply.com?subject=${encodeURIComponent('SKU Request')}&body=${encodeURIComponent(summary)}`;
+    return `mailto:profab@blazerelectricsupply.com?subject=${encodeURIComponent('SKU Request')}&body=${encodeURIComponent(summary)}`;
+  };
+
+  const handleEmail = () => {
+    setAttemptedSend(true);
+    if (!isSendReady) return;
   };
 
   const handleReset = () => {
@@ -357,6 +361,7 @@ function App() {
       <Summary
         sku={sku}
         onEmail={handleEmail}
+        mailtoHref={buildMailto()}
         onReset={handleReset}
         externalVoltage={selections['ControlVoltage'] === 'X' ? externalVoltage : ''}
         ledInfo={ledCount > 0 ? ledInfo : []}

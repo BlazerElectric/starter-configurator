@@ -2,7 +2,7 @@ import React from 'react';
 
 
 
-function Summary({ sku, onEmail, onReset, externalVoltage, ledInfo, contact, sendDisabled, attemptedSend, comments, needsUL }) {
+function Summary({ sku, onEmail, mailtoHref, onReset, externalVoltage, ledInfo, contact, sendDisabled, attemptedSend, comments, needsUL }) {
   return (
     <div className="summary">
       {sku && (
@@ -11,9 +11,26 @@ function Summary({ sku, onEmail, onReset, externalVoltage, ledInfo, contact, sen
         </>
       )}
       <div>
-        <button onClick={onEmail} className={sendDisabled ? 'btn-disabled' : ''}>
-          Email to Sales Team
-        </button>
+        {sendDisabled ? (
+          <button onClick={onEmail} className="btn-disabled">
+            Email to Sales Team
+          </button>
+        ) : (
+          <a
+            href={mailtoHref}
+            onClick={onEmail}
+            style={{
+              display: 'inline-block',
+              padding: '0.6rem 1rem',
+              borderRadius: '6px',
+              textDecoration: 'none',
+              color: 'inherit',
+              border: '1px solid currentColor'
+            }}
+          >
+            Email to Sales Team
+          </a>
+        )}
       </div>
       {attemptedSend && sendDisabled && (
         <div style={{ color: 'red', marginTop: '0.5rem' }}>
