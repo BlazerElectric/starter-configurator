@@ -104,12 +104,7 @@ function App() {
         }
       });
     }
-  const mailto = `mailto:profab@blazerelectricsupply.com?subject=${encodeURIComponent('SKU Request')}&body=${encodeURIComponent(summary)}`;
-    const a = document.createElement('a');
-    a.href = mailto;
-    document.body.appendChild(a);
-    a.click();
-    document.body.removeChild(a);
+  window.location.href = `mailto:profab@blazerelectricsupply.com?subject=${encodeURIComponent('SKU Request')}&body=${encodeURIComponent(summary)}`;
   };
 
   const handleReset = () => {
